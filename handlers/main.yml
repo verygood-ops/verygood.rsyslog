@@ -2,4 +2,4 @@
 # handlers file for verygood.rsyslog
 
 - name: reload rsyslog
-  service: name=rsyslog state=reloaded
+  service: name=rsyslog state=restarted
