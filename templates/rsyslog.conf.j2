@@ -16,14 +16,14 @@ $ModLoad imuxsock # provides support for local system logging
 $ModLoad imklog   # provides kernel logging support
 #$ModLoad immark  # provides --MARK-- message capability
 
-# provides UDP syslog reception
 {% if rsyslog_server_proto == "udp" %}
+# provides UDP syslog reception
 $ModLoad imudp
 $UDPServerRun {{ rsyslog_server_port }}
 {% endif %}
 
-# provides TCP syslog reception
 {% if rsyslog_server_proto == "tcp" %}
+# provides TCP syslog reception
 $ModLoad imtcp
 $InputTCPServerRun {{ rsyslog_server_port }}
 {% endif %}
