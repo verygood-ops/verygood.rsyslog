@@ -1,0 +1,11 @@
+---
+
+rsyslog_server_hostname: 192.168.1.1
+rsyslog_server_port: 514
+rsyslog_server_proto: tcp
+
+# set to true to enable forwarding to the above server
+rsyslog_forwarding: no
+
+
+rsyslog_repeated_msg_reduction: "on"

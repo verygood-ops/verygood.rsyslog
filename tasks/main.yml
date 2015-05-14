@@ -1,0 +1,7 @@
+---
+
+- apt: name=rsyslog state=present
+
+- name: add forwarding template
+  template: src=forwarding.conf.js dest=/etc/rsyslog.d/30-forwarding.conf
+  when: rsyslog_forwarding == true

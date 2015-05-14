@@ -1,0 +1,23 @@
+{{ ansible_managed }}
+
+$template LongForwardFormat,"<%PRI%>%TIMESTAMP:::date-rfc3339% {{ ansible_fqdn }} %syslogtag%%msg:::sp-if-no-1st-sp%%msg%"
+
+# ### begin forwarding rule ###
+# The statement between the begin ... end define a SINGLE forwarding
+# rule. They belong together, do NOT split them. If you create multiple
+# forwarding rules, duplicate the whole block!
+# Remote Logging (we use TCP for reliable delivery)
+
+# An on-disk queue is created for this action. If the remote host is
+# down, messages are spooled to disk and sent when it is up again.
+$WorkDirectory /var/spool/rsyslog # where to place spool files
+$ActionQueueFileName fwdRule1     # unique name prefix for spool files
+$ActionQueueMaxDiskSpace 1g       # 1gb space limit (use as much as possible)
+$ActionQueueSaveOnShutdown on     # save messages to disk on shutdown
+$ActionQueueType LinkedList       # run asynchronously
+$ActionResumeRetryCount -1        # infinite retries if host is down
+
+# Remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
+*.* @@(o){{ rsyslog_server_hostname }}:{{ rsyslog_server_port }};LongForwardFormat
+
+# ### end of the forwarding rule ###
