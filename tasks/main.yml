@@ -1,7 +1,9 @@
 ---
 
-- apt: name=rsyslog state=present
-  tags: rsyslog
+- name: install rsyslog
+  package:
+    name=rsyslog
+    state=present
 
 - name: configure rsyslog
   template: src=rsyslog.conf.j2 dest=/etc/rsyslog.conf
